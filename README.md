@@ -1,5 +1,11 @@
 # GitHub ARC on EKS — Runner Scale Set Setup Guide
 
+## 0. Architecture
+
+![My Image](./image.png)
+
+---
+
 Deploys the Actions Runner Controller (ARC) with a runner scale set pinned
 to a Karpenter spot NodePool, authenticated via PAT, using **Guaranteed
 QoS** so Karpenter bin-packs and evicts predictably, and running in
