@@ -1,6 +1,6 @@
 # GitHub ARC on EKS — Runner Scale Set Setup Guide
 
-## 0. Architecture
+##  Architecture
 
 ![My Image](./image.png)
 
