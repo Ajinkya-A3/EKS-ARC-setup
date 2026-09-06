@@ -1,0 +1,41 @@
+# values-eks-spot-amd.yaml
+
+githubConfigUrl: "https://github.com/<your-username>/<your-repo>"
+githubConfigSecret: eks-spot-amd-gh-secret
+
+runnerScaleSetName: "eks-spot-amd"
+
+minRunners: 0     # scale to zero when idle — no wasted spot node
+maxRunners: 3     # single repo, single workflow — keep this tight
+
+containerMode:
+  type: "kubernetes"
+  kubernetesModeWorkVolumeClaim:
+    accessModes:
+      - ReadWriteOnce
+    storageClassName: gp3
+    resources:
+      requests:
+        storage: 5Gi
+
+template:
+  spec:
+    securityContext:
+      fsGroup: 1001
+
+    nodeSelector:
+      node-pool: spot-amd64
+      capacity-type: spot
+      arch: amd64
+
+    containers:
+      - name: runner
+        image: ghcr.io/actions/actions-runner:latest
+        command: ["/home/runner/run.sh"]
+        resources:
+          requests:
+            cpu: "2"
+            memory: "4Gi"
+          limits:
+            cpu: "2"
+            memory: "4Gi"
